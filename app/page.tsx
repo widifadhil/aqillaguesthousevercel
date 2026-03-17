@@ -1,0 +1,645 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import {
+  Instagram,
+  MapPin,
+  Menu,
+  Mountain,
+  Phone,
+  ShoppingBag,
+  Sparkles,
+  X
+} from "lucide-react";
+import ScrollReveal from "@/components/scroll-reveal";
+import GuestHouseBookingPanel from "@/components/guest-house-booking-panel";
+import { bookingModes, guestHouseUnits, sanjaiProducts } from "@/lib/site-data";
+
+const navItems = [
+  { label: "Sanjai", href: "#sanjai" },
+  { label: "Guest House", href: "#guest-house" },
+  { label: "Tentang Kami", href: "#heritage" }
+];
+
+const highlights = [
+  { value: "UMKM", label: "Lokal Payakumbuh" },
+  { value: "7 Produk", label: "Oleh-oleh tersedia" },
+  { value: "WA Fast", label: "Pesan lebih cepat" }
+];
+
+const whatsappNumber = "628979143927";
+const whatsappBase = `https://wa.me/${whatsappNumber}?text=`;
+const guestHouseMapUrl = "https://maps.app.goo.gl/4nCt6fJBeDQzUNT17";
+const sanjaiMapUrl = "https://maps.app.goo.gl/4Yugp3jqdDv53Ko9A";
+const guestHouseInstagramUrl = "https://www.instagram.com/aqillaguesthouse/";
+const sanjaiInstagramUrl = "https://www.instagram.com/sanjai_aqilla/";
+const sanjaiAddress =
+  "Tanjung Pauh, Payakumbuh Barat, Payakumbuh City, West Sumatra 26223";
+const guestHouseAddress =
+  "Perumahan Panorama Alam Indah, Tj. Pauh, Kec. Payakumbuh Bar., Kota Payakumbuh, Sumatera Barat";
+const guestHouseEmbedQuery = `Aqilla Guest House, ${guestHouseAddress}`;
+const sanjaiEmbedQuery = `Sanjai Aqilla, ${sanjaiAddress}`;
+const grossirWhatsappUrl = `${whatsappBase}${encodeURIComponent(
+  "Halo, saya ingin tanya harga grosir Sanjai Aqilla."
+)}`;
+
+function getGuestHouseAmenityLabel(label: string) {
+  const compactLabels: Record<string, string> = {
+    "Kolam renang": "Kolam renang",
+    "Smart TV (YouTube + Netflix)": "Smart TV",
+    "Dapur": "Dapur",
+    "WiFi": "WiFi",
+    "Dapur + peralatan masak & makan": "Dapur lengkap",
+    "Ruang makan": "Ruang makan",
+    "Ruang tamu": "Ruang tamu",
+    "Parkir untuk 2 mobil": "Parkir 2 mobil",
+    "Parkiran muat 2 mobil": "Parkir 2 mobil",
+    "AC": "AC"
+  };
+
+  return compactLabels[label] ?? label;
+}
+
+function NavbarLogos() {
+  return (
+    <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center rounded-[1.25rem] border border-ember-200 bg-white/90 px-2 py-2 shadow-sm">
+        <Image
+          src="/logos/logo-sanjai.png"
+          alt="Logo Sanjai Aqilla"
+          width={64}
+          height={64}
+          className="h-11 w-11 rounded-full object-cover sm:h-12 sm:w-12"
+          priority
+        />
+      </div>
+
+      <div className="flex items-center rounded-[1.25rem] border border-tangerine-200 bg-white/90 px-2 py-2 shadow-sm">
+        <Image
+          src="/logos/logo-guest-hous.png"
+          alt="Logo Guest House Aqilla"
+          width={64}
+          height={64}
+          className="h-11 w-11 rounded-full object-cover sm:h-12 sm:w-12"
+          priority
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+
+  const closeMenu = () => setMobileMenuOpen(false);
+  const closeBookingModal = () => setBookingModalOpen(false);
+
+  return (
+    <main className="relative pb-20">
+      <section
+        id="hero"
+        className="relative min-h-screen overflow-hidden"
+        style={{
+          backgroundImage: "url('/hero/hero-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center"
+        }}
+      >
+        <div className="absolute inset-0 bg-black/55" />
+
+        <nav className="absolute inset-x-0 top-0 z-30">
+          <div className="section-shell py-6">
+            <div className="flex items-start justify-between gap-4">
+              <div className="hidden items-center gap-6 pt-3 text-sm font-medium text-white md:flex">
+                <a href="#guest-house" className="transition hover:text-white/70">
+                  Layanan
+                </a>
+                <a href="#sanjai" className="transition hover:text-white/70">
+                  Katalog
+                </a>
+              </div>
+
+              <a href="#hero" className="mx-auto text-center text-white animate-fade-up">
+                <p className="text-2xl font-bold tracking-[0.18em] sm:text-4xl sm:tracking-[0.28em]">AQILLA</p>
+                <p className="mt-1 text-[10px] tracking-[0.16em] text-white/85 sm:text-sm sm:tracking-[0.24em]">Sanjai & Guest House</p>
+              </a>
+
+              <div className="hidden items-center gap-6 pt-3 text-sm font-medium text-white md:flex">
+                <a href="#guest-house" className="transition hover:text-white/70">
+                  Reservasi
+                </a>
+                <a href="#footer-contact" className="transition hover:text-white/70">
+                  Kontak
+                </a>
+                <a href="#heritage" className="transition hover:text-white/70">
+                  Lokasi
+                </a>
+              </div>
+
+              <button
+                type="button"
+                aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+                aria-expanded={mobileMenuOpen}
+                onClick={() => setMobileMenuOpen((open) => !open)}
+                className="absolute right-4 top-6 inline-flex rounded-full border border-white/20 bg-white/10 p-2 text-white backdrop-blur md:hidden"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
+
+            {mobileMenuOpen ? (
+              <div className="mt-5 rounded-[1.5rem] border border-white/15 bg-black/50 p-4 backdrop-blur md:hidden">
+                <div className="flex flex-col gap-2 text-white">
+                  <a href="#guest-house" onClick={closeMenu} className="animate-fade-up rounded-2xl px-4 py-3 hover:bg-white/10">
+                    Layanan
+                  </a>
+                  <a href="#sanjai" onClick={closeMenu} className="animate-fade-up-delay-1 rounded-2xl px-4 py-3 hover:bg-white/10">
+                    Katalog
+                  </a>
+                  <a href="#guest-house" onClick={closeMenu} className="animate-fade-up-delay-2 rounded-2xl px-4 py-3 hover:bg-white/10">
+                    Reservasi
+                  </a>
+                  <a href="#footer-contact" onClick={closeMenu} className="animate-fade-up-delay-3 rounded-2xl px-4 py-3 hover:bg-white/10">
+                    Kontak
+                  </a>
+                  <a href="#heritage" onClick={closeMenu} className="animate-fade-up-delay-3 rounded-2xl px-4 py-3 hover:bg-white/10">
+                    Lokasi
+                  </a>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        </nav>
+
+        <div className="relative z-20 flex min-h-screen items-center">
+          <div className="section-shell">
+            <div className="mx-auto max-w-4xl text-center">
+              <h1 className="animate-fade-up text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-7xl">
+                Guest House Nyaman di Payakumbuh
+              </h1>
+              <p className="animate-fade-up-delay-1 mx-auto mt-5 max-w-2xl text-sm leading-7 text-gray-200 sm:mt-6 sm:text-lg sm:leading-8">
+                Aqilla menghadirkan penginapan yang hangat, rapi, dan fleksibel untuk booking per kamar atau sewa satu rumah.
+                Sanjai khas Payakumbuh hadir sebagai pelengkap manis untuk pengalaman menginapmu.
+              </p>
+
+              <div className="animate-fade-up-delay-2 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <a
+                  href="#sanjai"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[#FEF9E7] px-7 py-3 text-sm font-bold text-[#020101] transition duration-300 hover:-translate-y-0.5 hover:bg-white sm:w-auto"
+                >
+                  Jelajahi Katalog
+                </a>
+                <a
+                  href="#guest-house"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[#E67E22] px-7 py-3 text-sm font-bold text-[#FEF9E7] shadow-[0_12px_30px_rgba(147,81,22,0.22)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#D35400] sm:w-auto"
+                >
+                  Reservasi Guest House
+                </a>
+              </div>
+
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 text-xs text-gray-300 sm:flex-row sm:gap-8 sm:text-sm">
+                <div className="animate-fade-up-delay-3 inline-flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  Payakumbuh
+                </div>
+                <div className="animate-fade-up-delay-3 inline-flex items-center gap-2">
+                  <Phone className="h-4 w-4" />
+                  0852 6331 3249
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="guest-house" className="section-shell pt-20">
+        <div className="grid gap-8">
+          <ScrollReveal className="reveal-ready">
+            <div>
+              <p className="text-sm uppercase tracking-[0.24em] text-tangerine-700">Guest House</p>
+              <h2 className="section-title mt-3">Booking kamar atau sewa 1 rumah jadi lebih fleksibel.</h2>
+              <p className="section-copy mt-4">
+                Pilih 2 unit Aqilla untuk tamu harian, keluarga, rombongan, atau private stay satu rumah penuh.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {bookingModes.map((mode, index) => (
+              <ScrollReveal
+                key={mode.name}
+                className="reveal-ready"
+                delayClassName={index === 1 ? "animate-fade-up-delay-1" : ""}
+              >
+                <article className="rounded-[1.4rem] border border-tangerine-100 bg-white p-4 shadow-soft transition duration-300 hover:-translate-y-1 sm:rounded-[1.75rem] sm:p-6">
+                  <p className="text-xs uppercase tracking-[0.16em] text-tangerine-700 sm:text-sm sm:tracking-[0.2em]">Mode Booking</p>
+                  <h3 className="mt-2 text-lg font-semibold text-charcoal-900 sm:mt-3 sm:text-2xl">{mode.name}</h3>
+                  <p className="mt-2 text-xs leading-6 text-charcoal-600 sm:mt-3 sm:text-sm sm:leading-7">{mode.description}</p>
+                  <a
+                    href={`${whatsappBase}${encodeURIComponent(`Halo, saya ingin ${mode.name.toLowerCase()} di Guest House Aqilla.`)}`}
+                    className="mt-5 inline-flex rounded-full bg-[#E67E22] px-4 py-2 text-xs font-medium text-[#FEF9E7] transition hover:bg-[#D35400] sm:mt-8 sm:text-sm"
+                  >
+                    {mode.cta}
+                  </a>
+                </article>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal className="reveal-ready">
+            <div className="rounded-[1.75rem] border border-tangerine-100 bg-white p-5 shadow-soft sm:p-6">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.24em] text-tangerine-700">Cek Tanggal</p>
+                  <h3 className="mt-2 text-xl font-semibold text-charcoal-900 sm:text-2xl">
+                    Pilih tanggal booking lewat popup yang lebih ringkas.
+                  </h3>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-charcoal-600">
+                    Atur tanggal dan detail booking lewat popup agar landing page tetap ringkas.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setBookingModalOpen(true)}
+                  className="inline-flex items-center justify-center rounded-full bg-[#E67E22] px-5 py-3 text-sm font-medium text-[#FEF9E7] transition hover:bg-[#D35400]"
+                >
+                  Buka Form Cek Tanggal
+                </button>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-2 xl:gap-6">
+            {guestHouseUnits.map((unit, index) => (
+              <ScrollReveal
+                key={unit.name}
+                className="reveal-ready"
+                delayClassName={index === 1 ? "animate-fade-up-delay-1" : ""}
+              >
+                <article className="overflow-hidden rounded-[1.35rem] border border-tangerine-100 bg-white shadow-soft transition duration-300 hover:-translate-y-1 sm:rounded-[2rem]">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={unit.coverImage}
+                      alt={unit.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-3 sm:p-6">
+                      <span className="inline-flex w-fit rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#641E16] sm:px-3 sm:py-1 sm:text-xs sm:tracking-[0.18em]">
+                        Foto Asli
+                      </span>
+                      <div className="mt-3 text-white">
+                        <p className="text-sm font-semibold leading-5 sm:text-3xl sm:leading-normal">{unit.name}</p>
+                        <p className="mt-1 text-[9px] leading-4 text-white/90 sm:mt-2 sm:text-sm sm:leading-normal">
+                          {unit.roomCount} • {unit.bathCount} • {unit.parking}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 sm:p-6">
+                    <h3 className="text-sm font-semibold leading-5 text-charcoal-900 sm:text-2xl sm:leading-normal">{unit.name}</h3>
+                    <p className="mt-2 text-[11px] leading-5 text-charcoal-600 sm:mt-3 sm:text-sm sm:leading-7">
+                      {unit.slug === "aqilla-guest-house-1"
+                        ? "Unit besar untuk keluarga atau rombongan."
+                        : "Unit compact yang nyaman untuk stay praktis."}
+                    </p>
+
+                    <div className="mt-4 grid gap-2 sm:mt-6 sm:gap-3 sm:grid-cols-2">
+                      {unit.amenities.slice(0, 3).map((amenity) => {
+                        const Icon = amenity.icon;
+                        return (
+                          <div
+                            key={amenity.label}
+                            className="flex items-center gap-2 rounded-[0.9rem] bg-tangerine-50 px-2 py-2 text-[10px] leading-4 text-charcoal-700 sm:gap-3 sm:rounded-[1.25rem] sm:px-4 sm:py-3 sm:text-sm sm:leading-normal"
+                          >
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-tangerine-700 sm:h-9 sm:w-9">
+                              <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                            </span>
+                            {getGuestHouseAmenityLabel(amenity.label)}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <p className="mt-3 text-[11px] font-medium text-tangerine-700 sm:mt-4 sm:text-sm">
+                      + {unit.amenities.length - 3} fasilitas lainnya
+                    </p>
+
+                    <div className="mt-4 flex flex-col gap-2 sm:mt-6 sm:gap-3 sm:flex-row">
+                      <Link
+                        href={`/guest-house/${unit.slug}`}
+                        className="inline-flex items-center justify-center rounded-full border border-[#935116]/20 bg-white px-3 py-2 text-[11px] font-medium text-[#641E16] transition hover:bg-[#FEF9E7] sm:px-5 sm:py-3 sm:text-sm"
+                      >
+                        <span className="sm:hidden">Detail</span>
+                        <span className="hidden sm:inline">Lihat Detail Rumah</span>
+                      </Link>
+                      <span className="inline-flex items-center justify-center rounded-full bg-[#FEF9E7] px-3 py-2 text-[11px] font-medium text-[#641E16] sm:px-5 sm:py-3 sm:text-sm">
+                        <span className="sm:hidden">Cek tanggal dulu</span>
+                        <span className="hidden sm:inline">Pilih tanggal di panel atas</span>
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="sanjai" className="section-shell pt-20">
+        <ScrollReveal className="reveal-ready">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.24em] text-ember-700">Sanjai Gallery</p>
+            <h2 className="section-title mt-3">Keripik sanjai khas Payakumbuh dengan cita rasa autentik.</h2>
+          </div>
+          <p className="section-copy">
+            Melayani pembelian eceran untuk oleh-oleh pribadi serta pemesanan grosir untuk toko, reseller,
+            hampers, dan kebutuhan acara.
+          </p>
+        </div>
+        </ScrollReveal>
+
+        <ScrollReveal className="reveal-ready mt-8">
+          <div className="rounded-[1.6rem] border border-tangerine-100 bg-white p-4 shadow-soft sm:rounded-[2rem] sm:p-8">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <div className="flex flex-wrap gap-3">
+                  <span className="rounded-full bg-[#FEF9E7] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#641E16] sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.2em]">
+                    Bisa Eceran
+                  </span>
+                  <span className="rounded-full bg-[#E67E22] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#FEF9E7] sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.2em]">
+                    Tersedia Grosir
+                  </span>
+                </div>
+                <h3 className="mt-4 text-xl font-semibold text-charcoal-900 sm:mt-5 sm:text-2xl">Pesan sesuai kebutuhanmu.</h3>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-charcoal-600 sm:leading-7">
+                  Cocok untuk pembelian satuan sebagai oleh-oleh, maupun pemesanan partai besar untuk reseller,
+                  toko, acara keluarga, dan hampers.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="#sanjai"
+                  className="inline-flex items-center justify-center rounded-full border border-[#935116]/20 bg-[#FEF9E7] px-4 py-2.5 text-sm font-semibold text-[#641E16] transition hover:bg-white sm:px-5 sm:py-3"
+                >
+                  Pilih Produk Eceran
+                </a>
+                <a
+                  href={grossirWhatsappUrl}
+                  className="inline-flex items-center justify-center rounded-full bg-[#E67E22] px-4 py-2.5 text-sm font-semibold text-[#FEF9E7] transition hover:bg-[#D35400] sm:px-5 sm:py-3"
+                >
+                  Tanya Harga Grosir
+                </a>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <div className="mt-10 grid grid-cols-2 gap-4 md:gap-6 xl:grid-cols-3">
+          {sanjaiProducts.map((product, index) => (
+            <ScrollReveal
+              key={product.name}
+              className="reveal-ready"
+              delayClassName={index % 3 === 1 ? "animate-fade-up-delay-1" : index % 3 === 2 ? "animate-fade-up-delay-2" : ""}
+            >
+            <article className="rounded-[1.35rem] border border-tangerine-100 bg-white p-3 shadow-soft transition duration-300 hover:-translate-y-1 sm:rounded-[1.75rem] sm:p-5">
+              <div className="group relative aspect-square overflow-hidden rounded-[1.25rem]">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${product.gradient} opacity-35`} />
+                <div className="absolute left-3 top-3 sm:left-5 sm:top-5">
+                  <span className="rounded-full bg-white/90 px-2 py-0.5 text-[8px] font-medium text-charcoal-800 sm:px-3 sm:py-1 sm:text-xs">
+                    {product.accent}
+                  </span>
+                  <div className="mt-1 flex flex-wrap gap-1 sm:mt-3 sm:gap-2">
+                    <span className="rounded-full bg-black/45 px-1.5 py-0.5 text-[7px] font-medium uppercase tracking-[0.08em] text-white sm:px-3 sm:py-1 sm:text-[11px] sm:tracking-[0.16em]">
+                      Eceran
+                    </span>
+                    <span className="rounded-full bg-[#E67E22] px-1.5 py-0.5 text-[7px] font-medium uppercase tracking-[0.08em] text-[#FEF9E7] sm:px-3 sm:py-1 sm:text-[11px] sm:tracking-[0.16em]">
+                      Grosir
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <h3 className="mt-4 text-sm font-semibold leading-5 text-charcoal-900 sm:mt-5 sm:text-xl sm:leading-normal">
+                {product.name}
+              </h3>
+              <p className="mt-2 min-h-[3.5rem] text-[11px] font-medium leading-5 text-tangerine-700 sm:min-h-[3rem] sm:text-sm sm:leading-6">
+                {product.tagline}
+              </p>
+              <div className="mt-4 flex flex-col gap-2.5 sm:mt-5 sm:gap-3">
+                <Link
+                  href={`/produk/${product.slug}`}
+                  className="inline-flex justify-center rounded-full border border-[#935116]/20 bg-[#FEF9E7] px-3 py-2 text-xs font-medium text-[#641E16] transition hover:bg-white sm:px-4 sm:text-sm"
+                >
+                  Lihat Detail
+                </Link>
+                <a
+                  href={`${whatsappBase}${encodeURIComponent(`Halo, saya ingin pesan ${product.name}.`)}`}
+                  className="inline-flex justify-center rounded-full bg-[#E67E22] px-3 py-2 text-xs font-medium text-[#FEF9E7] transition hover:bg-[#D35400] sm:px-4 sm:text-sm"
+                >
+                  Pesan via WhatsApp
+                </a>
+              </div>
+            </article>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      <section id="heritage" className="section-shell pt-20">
+        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <ScrollReveal className="reveal-ready">
+          <div className="glass-panel rounded-[1.6rem] p-5 shadow-soft sm:rounded-[2rem] sm:p-10">
+            <p className="text-sm uppercase tracking-[0.24em] text-tangerine-700">About Us</p>
+            <h2 className="section-title mt-3">Rasa Minangkabau yang otentik, keramahan yang terasa personal.</h2>
+            <p className="mt-6 text-sm leading-8 text-charcoal-600 sm:text-base">
+              Aqilla Sanjai & Guest House Payakumbuh lahir dari semangat menghadirkan pengalaman lokal yang
+              jujur: camilan sanjai yang dibuat dengan resep khas daerah dan penginapan nyaman untuk tamu yang
+              ingin menikmati ritme kota Payakumbuh.
+            </p>
+            <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2">
+              <div className="animate-fade-up-delay-1 rounded-[1.25rem] bg-ember-50 p-4 sm:rounded-[1.5rem] sm:p-5">
+                <p className="text-sm font-semibold text-charcoal-900">Cita rasa autentik</p>
+                <p className="mt-2 text-sm leading-7 text-charcoal-600">
+                  Mengangkat karakter pedas, gurih, dan renyah khas sanjai Minang.
+                </p>
+              </div>
+              <div className="animate-fade-up-delay-2 rounded-[1.25rem] bg-tangerine-50 p-4 sm:rounded-[1.5rem] sm:p-5">
+                <p className="text-sm font-semibold text-charcoal-900">Lokasi strategis</p>
+                <p className="mt-2 text-sm leading-7 text-charcoal-600">
+                  Mudah dijangkau untuk wisata kuliner, transit keluarga, dan perjalanan bisnis.
+                </p>
+              </div>
+            </div>
+          </div>
+          </ScrollReveal>
+
+          <div className="grid gap-6">
+            <ScrollReveal className="reveal-ready">
+            <div className="overflow-hidden rounded-[2rem] border border-tangerine-100 shadow-soft">
+              <div className="flex flex-col items-start gap-2 bg-tangerine-500 px-4 py-4 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5" />
+                  <p className="text-sm font-medium">Lokasi Guest House</p>
+                </div>
+                <a href={guestHouseMapUrl} target="_blank" rel="noreferrer" className="text-sm text-tangerine-200">
+                  Buka Maps
+                </a>
+              </div>
+              <iframe
+                title="Lokasi Guest House Aqilla"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(guestHouseEmbedQuery)}&z=15&output=embed`}
+                className="h-[250px] w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="bg-white px-4 py-4 text-sm leading-7 text-charcoal-600 sm:px-6">{guestHouseAddress}</div>
+            </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="reveal-ready" delayClassName="animate-fade-up-delay-1">
+            <div className="overflow-hidden rounded-[2rem] border border-tangerine-100 shadow-soft">
+              <div className="flex flex-col items-start gap-2 bg-tangerine-400 px-4 py-4 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5" />
+                  <p className="text-sm font-medium">Lokasi Toko Sanjai</p>
+                </div>
+                <a href={sanjaiMapUrl} target="_blank" rel="noreferrer" className="text-sm text-saffron-100">
+                  Buka Maps
+                </a>
+              </div>
+              <iframe
+                title="Lokasi Toko Sanjai Aqilla"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(sanjaiEmbedQuery)}&z=15&output=embed`}
+                className="h-[250px] w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="bg-white px-4 py-4 text-sm leading-7 text-charcoal-600 sm:px-6">{sanjaiAddress}</div>
+            </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      <a
+        href={`${whatsappBase}${encodeURIComponent("Halo, saya ingin informasi Aqilla Sanjai & Guest House.")}`}
+        className="animate-soft-float fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-[#E67E22] px-4 py-2.5 text-sm font-medium text-[#FEF9E7] shadow-soft transition hover:bg-[#D35400] sm:bottom-5 sm:right-5 sm:px-5 sm:py-3"
+      >
+        <ShoppingBag className="h-4 w-4" />
+        WhatsApp
+      </a>
+
+      {bookingModalOpen ? (
+        <div
+          className="animate-modal-fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+          onClick={closeBookingModal}
+        >
+          <div
+            className="styled-scrollbar animate-modal-scale-in relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-[1.5rem] bg-white p-3 shadow-[0_24px_80px_rgba(2,1,1,0.28)] sm:rounded-[2rem] sm:p-6"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={closeBookingModal}
+              className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#935116]/15 bg-[#FEF9E7] text-[#641E16] transition hover:bg-white"
+              aria-label="Tutup form booking"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <GuestHouseBookingPanel
+              title="Atur tanggal sebelum kirim WhatsApp"
+              description="Pilih check-in, check-out, jumlah tamu, dan tipe booking agar format pertanyaannya langsung lengkap saat dikirim ke WhatsApp."
+              bookingTypeOptions={[
+                { label: "Booking per kamar", value: "booking per kamar" },
+                { label: "Sewa 1 rumah", value: "sewa 1 rumah" }
+              ]}
+              unitOptions={guestHouseUnits.map((unit) => ({
+                label: unit.name,
+                value: unit.name
+              }))}
+              actions={[
+                {
+                  label: "Tanya Booking Per Kamar",
+                  template:
+                    "Halo Admin Aqilla,\n\nSaya ingin booking guest house dengan detail berikut:\n- Rumah: {unit}\n- Tipe booking: {mode}\n- Check-in: {checkIn}\n- Check-out: {checkOut}\n- Estimasi menginap: {nights} malam\n- Jumlah tamu: {guests} orang\n- Sarapan: {breakfast}\n- Catatan: {notes}\n\nMohon info ketersediaannya ya."
+                },
+                {
+                  label: "Tanya Sewa 1 Rumah",
+                  template:
+                    "Halo Admin Aqilla,\n\nSaya ingin tanya harga dan ketersediaan dengan detail berikut:\n- Rumah: {unit}\n- Tipe booking: {mode}\n- Check-in: {checkIn}\n- Check-out: {checkOut}\n- Estimasi menginap: {nights} malam\n- Jumlah tamu: {guests} orang\n- Sarapan: {breakfast}\n- Catatan: {notes}\n\nMohon informasinya ya.",
+                  variant: "secondary"
+                }
+              ]}
+            />
+          </div>
+        </div>
+      ) : null}
+
+      <footer id="footer-contact" className="section-shell pt-20">
+        <div className="overflow-hidden rounded-[1.6rem] bg-gradient-to-r from-tangerine-500 to-tangerine-400 text-white shadow-soft sm:rounded-[2rem]">
+          <div className="grid gap-8 p-5 sm:p-10 lg:grid-cols-4">
+            <div className="lg:col-span-2">
+              <p className="text-sm uppercase tracking-[0.24em] text-white/75">Aqilla</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+                Aqilla Sanjai & Guest House Payakumbuh
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-8 text-white/80">
+                Pusat oleh-oleh sanjai dan penginapan nyaman yang membawa rasa khas Minangkabau dalam suasana
+                yang hangat, rapi, dan profesional.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white/75">Kontak</h3>
+              <div className="mt-4 space-y-3 text-sm text-white/85">
+                <p>WhatsApp: 0897-9143-927</p>
+                <a href={`https://wa.me/${whatsappNumber}`} className="inline-flex text-white underline-offset-4 hover:underline">
+                  Chat via WhatsApp
+                </a>
+                <a
+                  href={guestHouseInstagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex text-white underline-offset-4 hover:underline"
+                >
+                  Instagram Guest House
+                </a>
+                <a
+                  href={sanjaiInstagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex text-white underline-offset-4 hover:underline"
+                >
+                  Instagram Sanjai
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white/75">Lokasi</h3>
+              <div className="mt-4 space-y-3 text-sm text-white/85">
+                <p>Guest House: {guestHouseAddress}</p>
+                <p>Sanjai Store: {sanjaiAddress}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}

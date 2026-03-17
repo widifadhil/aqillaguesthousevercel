@@ -1,0 +1,29 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="48" fill="#FFF4E8"/>
+  <rect x="44" y="44" width="1112" height="812" rx="36" fill="url(#bg)"/>
+  <rect x="98" y="122" width="1004" height="656" rx="28" fill="#FFF9F3" fill-opacity="0.88"/>
+  <rect x="140" y="164" width="920" height="572" rx="24" fill="#FCE6D3"/>
+  <rect x="140" y="498" width="920" height="238" rx="0" fill="#E9C7A9"/>
+  <rect x="186" y="544" width="238" height="144" rx="18" fill="#B85E22"/>
+  <rect x="466" y="544" width="238" height="144" rx="18" fill="#B85E22"/>
+  <rect x="748" y="544" width="174" height="144" rx="18" fill="#8D3C0B"/>
+  <rect x="956" y="544" width="58" height="144" rx="12" fill="#5F2504"/>
+  <path d="M128 498L590 252L1068 498H128Z" fill="#E67E22"/>
+  <path d="M202 498L590 308L994 498H202Z" fill="#F0A35A"/>
+  <rect x="818" y="198" width="196" height="196" rx="28" fill="#8CC7D6"/>
+  <rect x="838" y="218" width="156" height="156" rx="20" fill="#74B8CA"/>
+  <path d="M210 428C254 366 310 336 378 338C453 340 509 377 548 444" stroke="#5F2504" stroke-width="18" stroke-linecap="round"/>
+  <path d="M632 428C676 366 732 336 800 338C875 340 931 377 970 444" stroke="#5F2504" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="914" cy="296" r="36" fill="#FFF9F3" fill-opacity="0.42"/>
+  <rect x="150" y="86" width="242" height="64" rx="20" fill="#FFF9F3" fill-opacity="0.92"/>
+  <text x="182" y="126" fill="#641E16" font-family="Arial, sans-serif" font-size="30" font-weight="700">Aqilla Guest House 1</text>
+  <text x="154" y="810" fill="#FFF9F3" font-family="Arial, sans-serif" font-size="34" font-weight="700">3 Kamar • 4 Kamar Mandi • Kolam Renang</text>
+  <text x="154" y="850" fill="#FFF9F3" font-family="Arial, sans-serif" font-size="24" font-weight="500">Ilustrasi placeholder untuk katalog rumah</text>
+  <defs>
+    <linearGradient id="bg" x1="88" y1="88" x2="1098" y2="838" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6C08C"/>
+      <stop offset="0.5" stop-color="#EC873A"/>
+      <stop offset="1" stop-color="#8D3C0B"/>
+    </linearGradient>
+  </defs>
+</svg>
