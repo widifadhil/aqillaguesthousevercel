@@ -181,7 +181,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-ember-700">Produk Lainnya</p>
-              <h2 className="section-title mt-3">Varian sanjai lain yang bisa kamu lihat.</h2>
+              <h2 className="section-title mt-3">Varian lain yang bisa kamu lihat.</h2>
             </div>
           </div>
 

@@ -106,7 +106,7 @@ export default function GuestHouseDetailPage({ params }: GuestHousePageProps) {
               <div className="mt-6 rounded-[1.2rem] border border-tangerine-100 bg-[#FEF9E7] p-4 sm:mt-8 sm:rounded-[1.5rem] sm:p-5">
                 <p className="text-sm font-semibold text-charcoal-900">Galeri foto tersedia</p>
                 <p className="mt-2 text-sm leading-6 text-charcoal-600 sm:leading-7">
-                  {unit.gallery.length} foto sudah terhubung untuk {unit.name}, termasuk cover utama dan foto galeri rumah.
+                  {unit.gallery.length} foto sudah tersedia untuk membantu melihat suasana {unit.name} dengan lebih jelas.
                 </p>
               </div>
 
@@ -114,7 +114,7 @@ export default function GuestHouseDetailPage({ params }: GuestHousePageProps) {
                 <GuestHouseBookingPanel
                   compact
                   title={`Booking ${unit.name}`}
-                  description="Atur periode menginap, jumlah tamu, dan tipe booking lalu kirim pertanyaan WhatsApp yang langsung lengkap."
+                  description="Atur tanggal, jumlah tamu, dan tipe booking lalu kirim pertanyaan WhatsApp dengan format yang rapi."
                   bookingTypeOptions={[
                     { label: "Booking per kamar", value: `booking per kamar di ${unit.name}` },
                     { label: "Sewa 1 rumah", value: `sewa 1 rumah di ${unit.name}` }

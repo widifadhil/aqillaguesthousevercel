@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Aqilla Sanjai & Guest House Payakumbuh",
   description:
-    "Belanja oleh-oleh sanjai khas Minangkabau dan booking guest house nyaman di Payakumbuh dalam satu landing page yang elegan.",
+    "Booking guest house nyaman dan pesan oleh-oleh sanjai khas Payakumbuh dalam satu website Aqilla.",
   keywords: [
     "Sanjai Payakumbuh",
     "Guest House Payakumbuh",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Aqilla Sanjai & Guest House Payakumbuh",
     description:
-      "Luxury hospitality meets local heritage: oleh-oleh sanjai premium dan guest house nyaman di Payakumbuh.",
+      "Guest house nyaman dan oleh-oleh sanjai khas Payakumbuh dalam satu website Aqilla.",
     type: "website"
   }
 };

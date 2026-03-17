@@ -7,27 +7,13 @@ import {
   Instagram,
   MapPin,
   Menu,
-  Mountain,
   Phone,
   ShoppingBag,
-  Sparkles,
   X
 } from "lucide-react";
 import ScrollReveal from "@/components/scroll-reveal";
 import GuestHouseBookingPanel from "@/components/guest-house-booking-panel";
 import { bookingModes, guestHouseUnits, sanjaiProducts } from "@/lib/site-data";
-
-const navItems = [
-  { label: "Sanjai", href: "#sanjai" },
-  { label: "Guest House", href: "#guest-house" },
-  { label: "Tentang Kami", href: "#heritage" }
-];
-
-const highlights = [
-  { value: "UMKM", label: "Lokal Payakumbuh" },
-  { value: "7 Produk", label: "Oleh-oleh tersedia" },
-  { value: "WA Fast", label: "Pesan lebih cepat" }
-];
 
 const whatsappNumber = "628979143927";
 const whatsappBase = `https://wa.me/${whatsappNumber}?text=`;
@@ -35,6 +21,7 @@ const guestHouseMapUrl = "https://maps.app.goo.gl/4nCt6fJBeDQzUNT17";
 const sanjaiMapUrl = "https://maps.app.goo.gl/4Yugp3jqdDv53Ko9A";
 const guestHouseInstagramUrl = "https://www.instagram.com/aqillaguesthouse/";
 const sanjaiInstagramUrl = "https://www.instagram.com/sanjai_aqilla/";
+const tiktokUrl = "https://www.tiktok.com/@aqillahomestaypayakumbuh?is_from_webapp=1&sender_device=pc";
 const sanjaiAddress =
   "Tanjung Pauh, Payakumbuh Barat, Payakumbuh City, West Sumatra 26223";
 const guestHouseAddress =
@@ -87,6 +74,14 @@ function NavbarLogos() {
         />
       </div>
     </div>
+  );
+}
+
+function TikTokIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.27V2h-3.12v12.4a2.67 2.67 0 0 1-2.67 2.67 2.67 2.67 0 0 1 0-5.34c.22 0 .43.03.63.08V8.64a5.8 5.8 0 0 0-.63-.03A5.79 5.79 0 0 0 4.24 14.4a5.79 5.79 0 0 0 5.79 5.79 5.79 5.79 0 0 0 5.79-5.79V8.11a7.9 7.9 0 0 0 4.62 1.48V6.47c-.29 0-.58-.03-.85-.08Z" />
+    </svg>
   );
 }
 
@@ -181,8 +176,8 @@ export default function Home() {
                 Guest House Nyaman di Payakumbuh
               </h1>
               <p className="animate-fade-up-delay-1 mx-auto mt-5 max-w-2xl text-sm leading-7 text-gray-200 sm:mt-6 sm:text-lg sm:leading-8">
-                Aqilla menghadirkan penginapan yang hangat, rapi, dan fleksibel untuk booking per kamar atau sewa satu rumah.
-                Sanjai khas Payakumbuh hadir sebagai pelengkap manis untuk pengalaman menginapmu.
+                Aqilla menghadirkan penginapan yang nyaman dan fleksibel untuk booking per kamar atau sewa satu rumah.
+                Sanjai khas Payakumbuh melengkapi pengalaman singgahmu.
               </p>
 
               <div className="animate-fade-up-delay-2 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -222,7 +217,7 @@ export default function Home() {
               <p className="text-sm uppercase tracking-[0.24em] text-tangerine-700">Guest House</p>
               <h2 className="section-title mt-3">Booking kamar atau sewa 1 rumah jadi lebih fleksibel.</h2>
               <p className="section-copy mt-4">
-                Pilih 2 unit Aqilla untuk tamu harian, keluarga, rombongan, atau private stay satu rumah penuh.
+                Tersedia dua unit Aqilla untuk tamu harian, keluarga, rombongan, atau sewa rumah penuh.
               </p>
             </div>
           </ScrollReveal>
@@ -258,7 +253,7 @@ export default function Home() {
                     Pilih tanggal booking lewat popup yang lebih ringkas.
                   </h3>
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-charcoal-600">
-                    Atur tanggal dan detail booking lewat popup agar landing page tetap ringkas.
+                    Atur tanggal dan detail booking lewat popup agar halaman tetap rapi dan mudah dibaca.
                   </p>
                 </div>
                 <button
@@ -369,18 +364,9 @@ export default function Home() {
           <div className="rounded-[1.6rem] border border-tangerine-100 bg-white p-4 shadow-soft sm:rounded-[2rem] sm:p-8">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <div className="flex flex-wrap gap-3">
-                  <span className="rounded-full bg-[#FEF9E7] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#641E16] sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.2em]">
-                    Bisa Eceran
-                  </span>
-                  <span className="rounded-full bg-[#E67E22] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#FEF9E7] sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.2em]">
-                    Tersedia Grosir
-                  </span>
-                </div>
-                <h3 className="mt-4 text-xl font-semibold text-charcoal-900 sm:mt-5 sm:text-2xl">Pesan sesuai kebutuhanmu.</h3>
+                <h3 className="text-xl font-semibold text-charcoal-900 sm:text-2xl">Pesan sesuai kebutuhanmu.</h3>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-charcoal-600 sm:leading-7">
-                  Cocok untuk pembelian satuan sebagai oleh-oleh, maupun pemesanan partai besar untuk reseller,
-                  toko, acara keluarga, dan hampers.
+                  Tersedia untuk pembelian satuan maupun grosir bagi reseller, toko, acara keluarga, dan hampers.
                 </p>
               </div>
 
@@ -464,11 +450,10 @@ export default function Home() {
           <ScrollReveal className="reveal-ready">
           <div className="glass-panel rounded-[1.6rem] p-5 shadow-soft sm:rounded-[2rem] sm:p-10">
             <p className="text-sm uppercase tracking-[0.24em] text-tangerine-700">About Us</p>
-            <h2 className="section-title mt-3">Rasa Minangkabau yang otentik, keramahan yang terasa personal.</h2>
+            <h2 className="section-title mt-3">Rasa Minangkabau yang otentik, pelayanan yang terasa dekat.</h2>
             <p className="mt-6 text-sm leading-8 text-charcoal-600 sm:text-base">
-              Aqilla Sanjai & Guest House Payakumbuh lahir dari semangat menghadirkan pengalaman lokal yang
-              jujur: camilan sanjai yang dibuat dengan resep khas daerah dan penginapan nyaman untuk tamu yang
-              ingin menikmati ritme kota Payakumbuh.
+              Aqilla Sanjai & Guest House Payakumbuh menghadirkan oleh-oleh khas daerah dan penginapan yang nyaman
+              bagi tamu yang ingin menikmati suasana Payakumbuh dengan lebih dekat.
             </p>
             <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2">
               <div className="animate-fade-up-delay-1 rounded-[1.25rem] bg-ember-50 p-4 sm:rounded-[1.5rem] sm:p-5">
@@ -599,33 +584,43 @@ export default function Home() {
                 Aqilla Sanjai & Guest House Payakumbuh
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-8 text-white/80">
-                Pusat oleh-oleh sanjai dan penginapan nyaman yang membawa rasa khas Minangkabau dalam suasana
-                yang hangat, rapi, dan profesional.
+                Penginapan nyaman dan oleh-oleh khas Payakumbuh dalam satu layanan yang rapi dan mudah diakses.
               </p>
             </div>
 
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white/75">Kontak</h3>
               <div className="mt-4 space-y-3 text-sm text-white/85">
-                <p>WhatsApp: 0897-9143-927</p>
-                <a href={`https://wa.me/${whatsappNumber}`} className="inline-flex text-white underline-offset-4 hover:underline">
+                <a href={`https://wa.me/${whatsappNumber}`} className="inline-flex items-center gap-2 text-white underline-offset-4 hover:underline">
+                  <Phone className="h-4 w-4" />
                   Chat via WhatsApp
                 </a>
                 <a
                   href={guestHouseInstagramUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex text-white underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-2 text-white underline-offset-4 hover:underline"
                 >
+                  <Instagram className="h-4 w-4" />
                   Instagram Guest House
                 </a>
                 <a
                   href={sanjaiInstagramUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex text-white underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-2 text-white underline-offset-4 hover:underline"
                 >
+                  <Instagram className="h-4 w-4" />
                   Instagram Sanjai
+                </a>
+                <a
+                  href={tiktokUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-white underline-offset-4 hover:underline"
+                >
+                  <TikTokIcon className="h-4 w-4" />
+                  TikTok Aqilla Homestay
                 </a>
               </div>
             </div>
